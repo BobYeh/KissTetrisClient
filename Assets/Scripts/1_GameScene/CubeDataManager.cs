@@ -34,6 +34,14 @@ namespace Assets.Scripts.GameScene
         public IEnumerator UpdateWithTileSetted()
         {
             UpdateLock = true;
+            ScoreManager.Instance.InitializeCombo(); 
+            yield return RunTileSetted();
+        }
+
+        public IEnumerator RunTileSetted()
+        {
+            ScoreManager.Instance.AddCombo();
+            ScoreManager.Instance.UpdateScoreText();
             int itemIndex = CheckIfItemExistAndReturnIndex();
 
             if (CheckTiles())
@@ -45,7 +53,7 @@ namespace Assets.Scripts.GameScene
                 UpdateTilesPosition();
                 GameTilesViewManager.Instance.UpdateViews();
                 yield return new WaitForSeconds(0.2f);
-                yield return UpdateWithTileSetted();
+                yield return RunTileSetted();
             }
             else if (itemIndex != -1)
             {
@@ -55,7 +63,7 @@ namespace Assets.Scripts.GameScene
                 UpdateTilesPosition();
                 GameTilesViewManager.Instance.UpdateViews();
                 yield return new WaitForSeconds(0.2f);
-                yield return UpdateWithTileSetted();
+                yield return RunTileSetted();
             }
             else
             {
@@ -98,10 +106,12 @@ namespace Assets.Scripts.GameScene
                     if (i<= sizeX - 2 && CheckLeftRightTiles(tiles[i, j], tiles[i + 1, j]))
                     {
                         IndexesToDisappear.Add(new List<int>() { index, index + 1 });
+                        ScoreManager.Instance.AddScore(DestroyType.TwoFace);
                     }
                     else if (i <= sizeX - 3 && CheckThreeKiss(tiles[i, j], tiles[i + 1, j], tiles[i + 2, j]))
                     {
                         IndexesToDisappear.Add(new List<int>() { index, index + 1, index + 2 });
+                        ScoreManager.Instance.AddScore(DestroyType.ThreeFace);
                     }
                 }
 
@@ -230,6 +240,7 @@ namespace Assets.Scripts.GameScene
             if (index - sizeX >=0)
             {
                 IndexesToDisappear.Add(new List<int>() { index, index - sizeX });
+                ScoreManager.Instance.AddScore(DestroyType.Underwear);
             }
             else
             {

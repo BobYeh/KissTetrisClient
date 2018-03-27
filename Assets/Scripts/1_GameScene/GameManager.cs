@@ -8,6 +8,7 @@ namespace Assets.Scripts.GameScene
     {
         public void StartGame()
         {
+            ScoreManager.Instance.Initialize();
             CubeDataManager.Instance.Initialize();
             CubeMoveController.Instance.Initialize();
             GameTilesViewManager.Instance.Initialize();
