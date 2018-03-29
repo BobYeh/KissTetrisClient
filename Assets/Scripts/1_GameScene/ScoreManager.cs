@@ -36,6 +36,11 @@ namespace Assets.Scripts.GameScene
         public void AddCombo()
         {
             combo += 1;
+
+            if (combo > 2)
+            {
+                ComboViewManager.Instance.ShowCombo(combo - 2);
+            }
         }
 
         public int GetBaseScore(DestroyType type)

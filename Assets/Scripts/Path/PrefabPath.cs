@@ -6,4 +6,5 @@
     public static string Underwear = "Prefabs/Underwear";
     public static string SlapLeft = "Prefabs/SlapLeft";
     public static string SlapRight = "Prefabs/SlapRight";
+    public static string ComboItemView = "Prefabs/ComboItem";
 }
