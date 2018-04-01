@@ -9,8 +9,7 @@ namespace Assets.Scripts.GameScene
     public enum DestroyType
     {
         Underwear,
-        ThreeFace,
-        TwoFace,
+        Kiss
     }
 
     public class ScoreManager : Singleton<ScoreManager>
@@ -43,24 +42,22 @@ namespace Assets.Scripts.GameScene
             }
         }
 
-        public int GetBaseScore(DestroyType type)
+        public int GetBaseScore(DestroyType type, int faceNumber)
         {
             switch (type)
             {
                 case DestroyType.Underwear:
-                    return  1;
-                case DestroyType.TwoFace:
-                    return  5;
-                case DestroyType.ThreeFace:
-                    return 10;
+                    return 1;
+                case DestroyType.Kiss:
+                    return GameSettings.baseScoreForEachFaces * faceNumber;
                 default:
                     return 0;
             }
         }
 
-        public void AddScore(DestroyType type)
+        public void AddScore(DestroyType type, int faceNumber)
         {
-            currentScore += (int)(GetBaseScore(type) * Mathf.Pow(2, combo - 1));
+            currentScore += (int)(GetBaseScore(type, faceNumber) * Mathf.Pow(2, combo - 1));
         }
 
         public void UpdateScoreText()

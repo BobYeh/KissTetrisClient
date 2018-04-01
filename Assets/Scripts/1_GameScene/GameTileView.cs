@@ -32,7 +32,7 @@ namespace Assets.Scripts.GameScene
 
         public void UpdatePositionWithITweenAnimation()
         {
-            if (Tile != null && Index != Tile.Index)
+            if (Tile != null && Index != Tile.Index && Index >= 0)
             {
                 Index = Tile.Index;
                 MoveAnimation(PositionUtils.TransIndexToPosition(Index));

@@ -35,10 +35,18 @@ namespace Assets.Scripts.GameScene
         public void RemoveView(int index)
         {
             var view = gameTileViews.Where(a=>a.Index == index).FirstOrDefault();
-            view.Disappear();
-            gameTileViews.Remove(view);
-            //Temp: should use pool
-            Destroy(view.gameObject);
+
+            if (view != null)
+            {
+                view.Disappear();
+                gameTileViews.Remove(view);
+                //Temp: should use pool
+                Destroy(view.gameObject);
+            }
+            else
+            {
+                Debug.Log(string.Format("Disappear Bug!!!!!"));
+            }
         }
 
         public void Reset()

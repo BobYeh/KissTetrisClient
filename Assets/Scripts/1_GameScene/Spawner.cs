@@ -4,29 +4,27 @@ using UnityEngine;
 
 namespace Assets.Scripts.GameScene
 {
-    public class Spawner : MonoBehaviour
+    public class Spawner : Singleton<Spawner>
     {
         [SerializeField]
         Transform cubeParent;
 
         Vector3 spawnStartPoint = new Vector3(3, 13, 0);
 
-        public GameObject[] SpawnGroups(int num)
+        public GameTileView[] SpawnGroups(int num)
         {
-            List<GameObject> spawnCubes = new List<GameObject>();
+            List<GameTileView> spawnCubes = new List<GameTileView>();
 
             for(int i=0; i<num; i++)
             {
                 TileType tileType = RandomUtils.RamdomSelectGameTitle(GetAllItemsPercentage(i == 0));
                 var prefab = GameTileViewFactory.Instance.GenerateGameTileView(tileType);
                 GameObject cube = Instantiate(prefab, cubeParent);
-                cube.transform.position = PositionUtils.TransUnitPositionToPosition( new Vector2(spawnStartPoint.x, spawnStartPoint.y + i));
                 GameTileViewFactory.Instance.AddGameTileViewComponent(tileType, cube);
                 var tileView = cube.GetComponent<GameTileView>();
                 tileView.Initialize(tileType);
-                tileView.InitializeIndex(PositionUtils.TransPositionToIndex(tileView.transform.position));
-                spawnCubes.Add(cube);
-                GameTilesViewManager.Instance.AddView(cube.GetComponent<GameTileView>());
+                spawnCubes.Add(tileView);
+                GameTilesViewManager.Instance.AddView(tileView);
             }
 
             return spawnCubes.ToArray();

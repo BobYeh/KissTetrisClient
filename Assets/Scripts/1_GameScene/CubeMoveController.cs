@@ -1,16 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.GameScene
 {
     public class CubeMoveController : Singleton<CubeMoveController>
     {
-        GameObject currentControlCube;
-        GameObject[] currentControlCubes;
-
-        [SerializeField]
-        Spawner spawner;
+       GameObject[] currentControlCubes;
 
         float updateTimeBase = 0.7f;
         float speedFactor = 1;
@@ -20,8 +17,6 @@ namespace Assets.Scripts.GameScene
 
         int sizeX = 6;
         int sizeY = 12;
-
-        int groupSize = 3;
 
         void Start()
         {
@@ -178,7 +173,17 @@ namespace Assets.Scripts.GameScene
 
         public void SpawnNewCube()
         {
-            currentControlCubes = spawner.SpawnGroups(groupSize);
+            currentControlCubes = GameTileGroupManager.Instance.GetNextTileGroup().Select(a=>a.gameObject).ToArray();
+        }
+
+        public void SpawnFromClickedHoldContentArea()
+        {
+            if (CubeDataManager.Instance.UpdateLock || !GameTileGroupManager.Instance.Holdable)
+                return;
+
+            CubeDataManager.Instance.UpdateLock = true;
+            currentControlCubes = GameTileGroupManager.Instance.SetHoldGroupAndGetNextTileGroup().Select(a => a.gameObject).ToArray();
+            CubeDataManager.Instance.UpdateLock = false;
         }
 
         void CheckForInput()

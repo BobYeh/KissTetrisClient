@@ -34,7 +34,7 @@ public class TouchListener : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             CubeMoveController.Instance.MoveCube(Vector3.left);
             startPos = newPos;
         }
-        else if (eventData.delta.y < -50)
+        else if (eventData.delta.y < -25)
         {
             CubeMoveController.Instance.QuickDrop();
         }

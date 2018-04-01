@@ -6,6 +6,11 @@ namespace Assets.Scripts.GameScene
 {
     public class GameManager : Singleton<GameManager>
     {
+        private void Awake()
+        {
+            Application.targetFrameRate = 60;
+        }
+
         public void StartGame()
         {
             ScoreManager.Instance.Initialize();
@@ -21,6 +26,7 @@ namespace Assets.Scripts.GameScene
             CubeDataManager.Instance.Reset();
             CubeMoveController.Instance.Reset();
             GameTilesViewManager.Instance.Reset();
+            GameTileGroupManager.Instance.Reset();
         }
 
         public void PauseGame()

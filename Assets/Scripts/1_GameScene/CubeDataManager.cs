@@ -34,7 +34,7 @@ namespace Assets.Scripts.GameScene
         public IEnumerator UpdateWithTileSetted()
         {
             UpdateLock = true;
-            ScoreManager.Instance.InitializeCombo(); 
+            ScoreManager.Instance.InitializeCombo();
             yield return RunTileSetted();
         }
 
@@ -103,15 +103,27 @@ namespace Assets.Scripts.GameScene
                 {
                     int index = PositionUtils.TransUnitPositionToIndex(new Vector2(i, j));
 
-                    if (i<= sizeX - 2 && CheckLeftRightTiles(tiles[i, j], tiles[i + 1, j]))
+                    if (i <= sizeX - 2 && CheckLeftRightTiles(tiles[i, j], tiles[i + 1, j]))
                     {
                         IndexesToDisappear.Add(new List<int>() { index, index + 1 });
-                        ScoreManager.Instance.AddScore(DestroyType.TwoFace);
+                        ScoreManager.Instance.AddScore(DestroyType.Kiss, 2);
                     }
-                    else if (i <= sizeX - 3 && CheckThreeKiss(tiles[i, j], tiles[i + 1, j], tiles[i + 2, j]))
+                    else if (i <= sizeX - 3)
                     {
-                        IndexesToDisappear.Add(new List<int>() { index, index + 1, index + 2 });
-                        ScoreManager.Instance.AddScore(DestroyType.ThreeFace);
+                        int lastReturnPosX = CheckMiddleKiss(new Vector2(i, j));
+
+                        if (lastReturnPosX != -1)
+                        {
+                            List<int> middleKissIndexes = new List<int>();
+
+                            for (int z = 0; z <= lastReturnPosX - i; z++)
+                            {
+                                middleKissIndexes.Add(index + z);
+                            }
+
+                            IndexesToDisappear.Add(middleKissIndexes);
+                            ScoreManager.Instance.AddScore(DestroyType.Kiss, middleKissIndexes.Count);
+                        }
                     }
                 }
 
@@ -149,6 +161,30 @@ namespace Assets.Scripts.GameScene
             return false;
         }
 
+        public int CheckMiddleKiss(Vector2 startPosition)
+        {
+            if (tiles[(int)startPosition.x, (int)startPosition.y] == null || tiles[(int)startPosition.x, (int)startPosition.y].itemType != ItemType.Face || tiles[(int)startPosition.x, (int)startPosition.y].direct != FaceDirect.Right)
+                return -1;
+
+            for (int i = (int)startPosition.x + 1; i <= GameSettings.sizeX - 1; i++)
+            {
+                if (tiles[i, (int)startPosition.y] != null && tiles[i, (int)startPosition.y].itemType == ItemType.Face && tiles[i, (int)startPosition.y].direct == FaceDirect.Forward)
+                {
+                    continue;
+                }
+                else if (tiles[i, (int)startPosition.y] != null && tiles[i, (int)startPosition.y].itemType == ItemType.Face && tiles[i, (int)startPosition.y].direct == FaceDirect.Left)
+                {
+                    return i;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+
+            return -1;
+        }
+
         public void PlayKissAnimation()
         {
             for (int i = 0; i < IndexesToDisappear.Count; i++)
@@ -158,10 +194,10 @@ namespace Assets.Scripts.GameScene
                     GameTilesViewManager.Instance.GetView(IndexesToDisappear[i][0]).GetComponent<GameFaceView>().PlayKissAnimation();
                     GameTilesViewManager.Instance.GetView(IndexesToDisappear[i][1]).GetComponent<GameFaceView>().PlayKissAnimation();
                 }
-                else if (IndexesToDisappear[i].Count == 3)
+                else if (IndexesToDisappear[i].Count >= 3)
                 {
                     GameTilesViewManager.Instance.GetView(IndexesToDisappear[i][0]).GetComponent<GameFaceView>().PlayKissAnimation();
-                    GameTilesViewManager.Instance.GetView(IndexesToDisappear[i][2]).GetComponent<GameFaceView>().PlayKissAnimation();
+                    GameTilesViewManager.Instance.GetView(IndexesToDisappear[i][IndexesToDisappear[i].Count - 1]).GetComponent<GameFaceView>().PlayKissAnimation();
                 }
             }
         }
@@ -175,10 +211,10 @@ namespace Assets.Scripts.GameScene
                     var heartPosition = VectorUtility.MidPoints(PositionUtils.TransIndexToPosition(IndexesToDisappear[i][0]), PositionUtils.TransIndexToPosition(IndexesToDisappear[i][1]));
                     EffectViewManager.Instance.GenerateEffects("heart", heartPosition, 0.3f);
                 }
-                else if (IndexesToDisappear[i].Count == 3)
+                else if (IndexesToDisappear[i].Count >= 3)
                 {
                     var heartPosition1 = VectorUtility.MidPoints(PositionUtils.TransIndexToPosition(IndexesToDisappear[i][0]), PositionUtils.TransIndexToPosition(IndexesToDisappear[i][1]));
-                    var heartPosition2 = VectorUtility.MidPoints(PositionUtils.TransIndexToPosition(IndexesToDisappear[i][1]), PositionUtils.TransIndexToPosition(IndexesToDisappear[i][2]));
+                    var heartPosition2 = VectorUtility.MidPoints(PositionUtils.TransIndexToPosition(IndexesToDisappear[i][IndexesToDisappear[i].Count - 2]), PositionUtils.TransIndexToPosition(IndexesToDisappear[i][IndexesToDisappear[i].Count - 1]));
                     EffectViewManager.Instance.GenerateEffects("heart", heartPosition1, 0.3f);
                     EffectViewManager.Instance.GenerateEffects("heart", heartPosition2, 0.3f);
                 }
@@ -240,7 +276,7 @@ namespace Assets.Scripts.GameScene
             if (index - sizeX >=0)
             {
                 IndexesToDisappear.Add(new List<int>() { index, index - sizeX });
-                ScoreManager.Instance.AddScore(DestroyType.Underwear);
+                ScoreManager.Instance.AddScore(DestroyType.Underwear, 1);
             }
             else
             {
