@@ -34,9 +34,9 @@ namespace Assets.Scripts.GameScene
         public Dictionary<TileType, float> GetRareItemsPercentage()
         {
             Dictionary<TileType, float> rareItemPercentage = new Dictionary<TileType, float>();
-            rareItemPercentage.Add(TileType.Underwear, 15);
-            rareItemPercentage.Add(TileType.SlapLeft, 15);
-            rareItemPercentage.Add(TileType.SlapRight, 15);
+            rareItemPercentage.Add(TileType.Underwear, 33.33f);
+            rareItemPercentage.Add(TileType.SlapLeft, 33.33f);
+            rareItemPercentage.Add(TileType.SlapRight, 33.33f);
             return rareItemPercentage;
         }
 
