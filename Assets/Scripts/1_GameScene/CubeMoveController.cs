@@ -62,7 +62,7 @@ namespace Assets.Scripts.GameScene
 
         public void InitializeDropSpeed()
         {
-            updateTime = updateTimeBase / speedFactor;
+            updateTime = updateTimeBase / (speedFactor + ((int)ScoreManager.Instance.CurrentScore / GameDefine.UPDATE_SPEED_SCORE));
         }
 
         public void Reset()

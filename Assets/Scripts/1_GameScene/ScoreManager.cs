@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 namespace Assets.Scripts.GameScene
 {
@@ -55,14 +56,24 @@ namespace Assets.Scripts.GameScene
             }
         }
 
-        public void AddScore(DestroyType type, int faceNumber)
+        public int AddScore(DestroyType type, int faceNumber)
         {
             currentScore += (int)(GetBaseScore(type, faceNumber) * Mathf.Pow(2, combo - 1));
+            return currentScore;
         }
 
         public void UpdateScoreText()
         {
             scoreText.text = currentScore.ToString();
+        }
+
+        public int CurrentScore
+        {
+            get
+            {
+                return currentScore;
+            }
+
         }
     }
 }
