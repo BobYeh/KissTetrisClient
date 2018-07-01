@@ -13,7 +13,11 @@ namespace Assets.Scripts.GameScene
         float speedFactor = 1;
 
         float updateTime = 0.2f;
+        float maxUpdateTime = 2.0f;
         float currentUpdateTime = 0.0f;
+
+        float changeDirectWaitTime = 0.3f;
+        float changeDirectBufferTime = 0;
 
         int sizeX = 6;
         int sizeY = 12;
@@ -35,15 +39,20 @@ namespace Assets.Scripts.GameScene
 
             if (currentUpdateTime > updateTime)
             {
-                currentUpdateTime = 0;
-
                 if (UpdateMoveCubeWithUnitTime())
                 {
-
+                    currentUpdateTime = 0;
+                    changeDirectBufferTime = 0;
+                }
+                else if(changeDirectBufferTime <= changeDirectWaitTime && currentUpdateTime < maxUpdateTime)
+                {
+                    UpdateChangeBufferTime();
                 }
                 else if (CurrentCubeSetted())
                 {
                     StartCoroutine(CubeDataManager.Instance.UpdateWithTileSetted());
+                    currentUpdateTime = 0;
+                    changeDirectBufferTime = 0;
                 }
                 else
                 {
@@ -52,6 +61,11 @@ namespace Assets.Scripts.GameScene
             }
 
             CheckForInput();
+        }
+
+        void UpdateChangeBufferTime()
+        {
+            changeDirectBufferTime += Time.deltaTime;
         }
 
         public void Initialize()
@@ -123,6 +137,8 @@ namespace Assets.Scripts.GameScene
                     cube.GetComponent<GameTileView>().UpdateTartgetPosition(PositionUtils.TransUnitPositionToPosition(moveDirect));
                     cube.GetComponent<GameTileView>().Index = PositionUtils.TransUnitPositionToIndex(newPos);
                 }
+
+                changeDirectBufferTime = 0;
 
                 return true;
             }
@@ -251,6 +267,8 @@ namespace Assets.Scripts.GameScene
                 view.UpdateTartgetPosition(VectorUtility.MinusPosition(PositionUtils.TransIndexToPosition(view.Index), PositionUtils.TransIndexToPosition(newIndex)));
                 view.Index = newIndex;
             }
+
+            changeDirectBufferTime = 0;
         }
     }
 }
