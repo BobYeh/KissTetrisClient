@@ -14,5 +14,5 @@ public class GameSettings
 
     public static int baseScoreForEachFaces = 5;
 
-    public static Vector3 spawnStartPoint = new Vector3(3, 13, 0);
+    public static Vector3 spawnStartPoint = new Vector3(3, 11, 0);
 }
