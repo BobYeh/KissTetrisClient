@@ -57,7 +57,7 @@ namespace Assets.Scripts.GameScene
             for (int i = 0; i < group.Length; i++)
             {
                 group[i].transform.SetParent(gameTilesGroupContent);
-                group[i].transform.localPosition = PositionUtils.TransUnitPositionToPosition(new Vector2(tileStartUnitPos.x, tileStartUnitPos.y + i));
+                group[i].transform.localPosition = PositionUtils.TransUnitPositionToPosition(new Vector3 (tileStartUnitPos.x, tileStartUnitPos.y + i));
                 group[i].InitializeIndex(PositionUtils.TransPositionToIndex(group[i].transform.position));
             }
         }
