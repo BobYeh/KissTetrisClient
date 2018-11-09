@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using KissTetris.Common;
 
-public class TitleSceneManager : MonoBehaviour
+namespace KissTetris.Title
 {
-    [SerializeField]
-    GameObject gameGuideView;
-	
-    public void OnClickedGameGuideButton()
+    public class TitleSceneManager : MonoBehaviour
     {
-        gameGuideView.SetActive(true);
-    }
+        [SerializeField]
+        GameObject gameGuideView;
+
+        public void OnClickedGameGuideButton()
+        {
+            gameGuideView.SetActive(true);
+        }
 
 
-    public void OnClickedGameStartButton()
-    {
-        SceneManager.LoadSceneAsync(SceneName.GameScene);
+        public void OnClickedGameStartButton()
+        {
+            SceneManager.LoadSceneAsync(SceneName.GameScene);
+        }
     }
 }

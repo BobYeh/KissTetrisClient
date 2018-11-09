@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.GameScene
+namespace KissTetris.GameScene
 {
     public class GameTileGroupManager : Singleton<GameTileGroupManager>
     {
@@ -72,7 +72,7 @@ namespace Assets.Scripts.GameScene
 
         public GameTileView[] GenerateNextTileGroup()
         {
-            nextControllGroup = Spawner.Instance.SpawnGroups(GameSettings.groupSize);
+            nextControllGroup = Spawner.Instance.SpawnGroups(GameSettings.numberOfGroupItems);
             SetGroupToNextContent(nextControllGroup);
             return nextControllGroup;
         }

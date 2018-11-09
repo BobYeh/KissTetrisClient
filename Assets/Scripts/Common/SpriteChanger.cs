@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpriteChanger : MonoBehaviour {
-
-    [SerializeField]
-    Sprite[] sprites;
-    [SerializeField]
-    Image image;
-
-	public void ChangeSprite(int index)
+namespace KissTetris.Common
+{
+    public class SpriteChanger : MonoBehaviour
     {
-        if(sprites.Length > 0 && index >=0 && index < sprites.Length)
+
+        [SerializeField]
+        Sprite[] sprites;
+        [SerializeField]
+        Image image;
+
+        public void ChangeSprite(int index)
         {
-            image.sprite = sprites[index];
+            if (sprites.Length > 0 && index >= 0 && index < sprites.Length)
+            {
+                image.sprite = sprites[index];
+            }
         }
     }
 }

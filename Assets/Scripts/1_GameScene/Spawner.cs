@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using KissTetris.Utilities;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.GameScene
+namespace KissTetris.GameScene
 {
     public class Spawner : Singleton<Spawner>
     {

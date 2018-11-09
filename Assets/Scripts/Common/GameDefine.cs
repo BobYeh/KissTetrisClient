@@ -1,4 +1,7 @@
-﻿public class GameDefine 
+﻿namespace KissTetris.Common
 {
-    public const float UPDATE_SPEED_SCORE = 200;
+    public class GameDefine
+    {
+        public const float UPDATE_SPEED_SCORE = 200;
+    }
 }

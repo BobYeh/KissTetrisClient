@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.GameScene
+namespace KissTetris.GameScene
 {
     public enum TileType
     {

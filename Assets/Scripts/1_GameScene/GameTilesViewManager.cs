@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.GameScene
+namespace KissTetris.GameScene
 {
     public class GameTilesViewManager : Singleton<GameTilesViewManager>
     {

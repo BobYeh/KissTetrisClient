@@ -2,23 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraSizeChanger : MonoBehaviour
+namespace KissTetris.GameScene
 {
-    // Use this for initialization
-    void Start()
+    public class CameraSizeChanger : MonoBehaviour
     {
-        float defaultAspectRatio = 16.0f / 9.0f;
-        float currentAspectRatio = (float)Screen.height / Screen.width;
-
-        if (currentAspectRatio > defaultAspectRatio)
+        // Use this for initialization
+        void Start()
         {
-            var cameraSize = GetComponent<UnityEngine.Camera>().orthographicSize;
-            GetComponent<UnityEngine.Camera>().orthographicSize = cameraSize * (currentAspectRatio / defaultAspectRatio);
+            float defaultAspectRatio = 16.0f / 9.0f;
+            float currentAspectRatio = (float)Screen.height / Screen.width;
+
+            if (currentAspectRatio > defaultAspectRatio)
+            {
+                var cameraSize = GetComponent<UnityEngine.Camera>().orthographicSize;
+                GetComponent<UnityEngine.Camera>().orthographicSize = cameraSize * (currentAspectRatio / defaultAspectRatio);
+            }
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+    }
 }

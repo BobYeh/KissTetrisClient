@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Assets.Scripts.GameScene
+namespace KissTetris.GameScene
 {
     public class GameTileView : MonoBehaviour
     {
-       protected TileType tileType;
-       public GameTile Tile;
+        public int Index {get; set;}
+        public GameTile Tile {get; set; }
+
+        protected TileType tileType;
 
         float animationTime = 0.2f;
-
-        public int Index;
 
         Vector3 currentStartPos;
         Vector3 nextPos;

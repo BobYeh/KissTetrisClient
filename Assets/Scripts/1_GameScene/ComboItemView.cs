@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KissTetris.Common;
 
-public class ComboItemView : MonoBehaviour
+namespace KissTetris.GameScene
 {
-    [SerializeField]
-    SpriteChanger numberChanger;
-
-    public void Initialize(int number)
+    public class ComboItemView : MonoBehaviour
     {
-        numberChanger.ChangeSprite(number);
+        [SerializeField]
+        SpriteChanger numberChanger;
+
+        public void Initialize(int number)
+        {
+            numberChanger.ChangeSprite(number);
+        }
     }
 }

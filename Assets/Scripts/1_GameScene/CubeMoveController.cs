@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using KissTetris.Common;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.GameScene
+namespace KissTetris.GameScene
 {
     public class CubeMoveController : Singleton<CubeMoveController>
     {

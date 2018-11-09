@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-namespace Assets.Scripts.GameScene
+namespace KissTetris.GameScene
 {
     //How tiles be destroyed , base score depends on it
     public enum DestroyType

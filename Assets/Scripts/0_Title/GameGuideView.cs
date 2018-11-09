@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameGuideView : MonoBehaviour
+namespace KissTetris.Title
 {
-    public void OnClickedCloseButton()
+    public class GameGuideView : MonoBehaviour
     {
-        gameObject.SetActive(false);
+        public void OnClickedCloseButton()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
