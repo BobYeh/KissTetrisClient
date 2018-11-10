@@ -16,17 +16,29 @@ namespace KissTetris.GameScene
 
             for(int i=0; i<num; i++)
             {
-                TileType tileType = RandomUtils.RamdomSelectGameTitle(GetAllItemsPercentage(i == 0));
-                var prefab = GameTileViewFactory.Instance.GenerateGameTileView(tileType);
-                GameObject cube = Instantiate(prefab, cubeParent);
-                GameTileViewFactory.Instance.AddGameTileViewComponent(tileType, cube);
-                var tileView = cube.GetComponent<GameTileView>();
-                tileView.Initialize(tileType);
+                TileType tileType;
+
+                if (i == 0)
+                    tileType = RandomUtils.RandomSelectGameTile(GetRareItemsPercentage());
+                else
+                    tileType = RandomUtils.RandomSelectGameTile(GetFacesPercentage());
+
+                var tileView = SpawnGameTile(tileType);
                 spawnCubes.Add(tileView);
                 GameTilesViewManager.Instance.AddView(tileView);
             }
 
             return spawnCubes.ToArray();
+        }
+
+        public GameTileView SpawnGameTile(TileType tileType)
+        {
+            var prefab = GameTileViewFactory.Instance.GenerateGameTileView(tileType);
+            GameObject cube = Instantiate(prefab, cubeParent);
+            GameTileViewFactory.Instance.AddGameTileViewComponent(tileType, cube);
+            var tileView = cube.GetComponent<GameTileView>();
+            tileView.Initialize(tileType);
+            return tileView;
         }
 
         //DummyData
@@ -39,28 +51,17 @@ namespace KissTetris.GameScene
             return rareItemPercentage;
         }
 
-        public Dictionary<TileType, float> GetAllItemsPercentage(bool isIncludeRareItems)
+        public Dictionary<TileType, float> GetFacesPercentage()
         {
             List<TileType> facesType = new List<TileType>() { TileType.BoyForward, TileType.BoyLeft, TileType.BoyRight, TileType.GirlForward, TileType.GirlLeft, TileType.GirlRight };
             Dictionary<TileType, float> allItemsPercentage = new Dictionary<TileType, float>();
             float totalFacesPercentage = 100;
 
-            if (isIncludeRareItems)
-            {
-                var rareItemsPercentage = GetRareItemsPercentage();
-
-                foreach(var tileType in rareItemsPercentage.Keys)
-                {
-                    allItemsPercentage.Add(tileType, rareItemsPercentage[tileType]);
-                    totalFacesPercentage -= rareItemsPercentage[tileType];
-                }
-            }
-
-            float faceAveragePrecentage = totalFacesPercentage / (float)facesType.Count;
+            float faceAveragePercentage = totalFacesPercentage / (float)facesType.Count;
 
             foreach (var tileType in facesType)
             {
-                allItemsPercentage.Add(tileType, faceAveragePrecentage);
+                allItemsPercentage.Add(tileType, faceAveragePercentage);
             }
 
             return allItemsPercentage;

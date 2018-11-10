@@ -52,8 +52,8 @@ namespace KissTetris.GameScene
 
         public void OnClickedOpenMenuButton()
         {
-            OnOpen();
             GameManager.Instance.PauseGame();
+            OnOpen();
         }
 
         public void OnOpen()

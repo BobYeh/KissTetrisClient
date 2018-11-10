@@ -33,8 +33,7 @@ namespace KissTetris.GameScene
                     break;
             }
 
-            var gameObject = Resources.Load<GameObject>(prefabPath);
-            return gameObject;
+            return Resources.Load<GameObject>(prefabPath);
         }
 
         public void AddGameTileViewComponent(TileType type, GameObject gameObject)
@@ -44,8 +43,6 @@ namespace KissTetris.GameScene
                 case TileType.BoyForward:
                 case TileType.BoyLeft:
                 case TileType.BoyRight:
-                    gameObject.AddComponent<GameFaceView>();
-                    break;
                 case TileType.GirlForward:
                 case TileType.GirlLeft:
                 case TileType.GirlRight:

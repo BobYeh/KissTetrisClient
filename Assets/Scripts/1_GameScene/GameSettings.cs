@@ -20,6 +20,7 @@ namespace KissTetris.GameScene
         public static float clickMovementThreshold = 30;
         public static float clickPressTimeThreshold = 0.3f;
 
+        public static int baseScoreForItems = 1;
         public static int baseScoreForEachFaces = 5;
 
         public static Vector3 spawnStartPoint = new Vector3(3, 11, 0);

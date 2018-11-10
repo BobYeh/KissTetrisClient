@@ -43,10 +43,6 @@ namespace KissTetris.GameScene
                 //Temp: should use pool
                 Destroy(view.gameObject);
             }
-            else
-            {
-                Debug.Log(string.Format("Disappear Bug!!!!!"));
-            }
         }
 
         public void Reset()

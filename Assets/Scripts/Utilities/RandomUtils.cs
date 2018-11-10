@@ -8,7 +8,7 @@ namespace KissTetris.Utilities
 {
     public class RandomUtils
     {
-        public static TileType RamdomSelectGameTitle(Dictionary<TileType, float> data)
+        public static TileType RandomSelectGameTile(Dictionary<TileType, float> data)
         {
             int rand = Random.Range(0, 10000);
             TileType currentTileType;

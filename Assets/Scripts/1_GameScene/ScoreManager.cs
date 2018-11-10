@@ -48,7 +48,7 @@ namespace KissTetris.GameScene
             switch (type)
             {
                 case DestroyType.Underwear:
-                    return 1;
+                    return GameSettings.baseScoreForItems;
                 case DestroyType.Kiss:
                     return GameSettings.baseScoreForEachFaces * faceNumber;
                 default:

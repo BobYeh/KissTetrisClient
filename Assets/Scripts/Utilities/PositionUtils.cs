@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using KissTetris.GameScene;
 using UnityEngine;
 
-namespace KissTetris.GameScene
+namespace KissTetris.Utilities
 {
     public class PositionUtils
     {
